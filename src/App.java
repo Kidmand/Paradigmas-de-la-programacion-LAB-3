@@ -11,7 +11,8 @@ import heuristics.HeuristicsTools;
 
 import namedEntities.NamedEntityStorage;
 import namedEntities.dictionary.DictionaryStorage;
-
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaSparkContext;
 import utils.*;
 
 public class App {
