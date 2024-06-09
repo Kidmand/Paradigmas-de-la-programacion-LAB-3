@@ -3,6 +3,10 @@ JAVA = java
 SRC_DIR = src
 OUTPUT_DIR = bin
 
+SPARK_DIR = spark
+SPARL_URL = https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz
+SPARK_TAR = spark-3.5.1-bin-hadoop3.tgz
+
 # Obtener todas las bibliotecas JAR en la carpeta lib
 LIBS = $(wildcard lib/*.jar)
 
@@ -33,6 +37,14 @@ $(OUTPUT_DIR)/%.class: $(SRC_DIR)/%.java
 run: $(OUTPUT_DIR)/$(MAIN_CLASS).class
 	@echo "CLASSPATH: $(CLASSPATH)"
 	$(JAVA) -cp $(CLASSPATH) $(MAIN_CLASS) $(ARGS)
+
+# Objetivo para instalar Spark
+spark-install:
+	wget $(SPARL_URL)
+	mkdir -p $(SPARK_DIR)
+	tar -xvzf $(SPARK_TAR) -C $(SPARK_DIR) --strip-components=1
+	rm $(SPARK_TAR)
+	export SPARK_HOME=$(SPARK_DIR)
 
 # Objetivo para limpiar los archivos compilados
 clean:
