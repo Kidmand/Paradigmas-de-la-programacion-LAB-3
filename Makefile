@@ -21,7 +21,7 @@ bin/%.class: src/%.java
 run: bin/$(MAIN_CLASS).class
 	@$(JAVA) -cp $(LIBS):bin $(MAIN_CLASS) $(ARGS)
 
-install-spark:
+spark-install:
 	wget $(SPARL_URL)
 	mkdir -p $(SPARK_DIR)
 	tar -xvzf $(SPARK_TAR) -C $(SPARK_DIR) --strip-components=1
