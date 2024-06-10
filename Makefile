@@ -11,10 +11,10 @@ SPARK_TAR = spark-3.5.1-bin-hadoop3.tgz
 LIBS = $(wildcard lib/*.jar)
 
 # Formatear el classpath con todos los archivos JAR y el directorio de salida
-CLASSPATH = $(shell echo $(LIBS) | tr ' ' ':'):$(OUTPUT_DIR)
+CLASSPATH = $(shell echo $(LIBS) | tr ' ' ':')
 
 # Flags para javac
-JAVAC_FLAGS = -d $(OUTPUT_DIR) -cp $(CLASSPATH)
+JAVAC_FLAGS = -d $(OUTPUT_DIR) -cp $(CLASSPATH):$(SRC_DIR)
 
 # Encontrar todos los archivos Java en el directorio src
 JAVA_FILES = $(shell find $(SRC_DIR) -name "*.java")
@@ -35,8 +35,7 @@ $(OUTPUT_DIR)/%.class: $(SRC_DIR)/%.java
 
 # Objetivo para ejecutar la aplicación
 run: $(OUTPUT_DIR)/$(MAIN_CLASS).class
-	@echo "CLASSPATH: $(CLASSPATH)"
-	$(JAVA) -cp $(CLASSPATH) $(MAIN_CLASS) $(ARGS)
+	$(JAVA) -cp $(CLASSPATH):$(OUTPUT_DIR) $(MAIN_CLASS) $(ARGS)
 
 # Objetivo para instalar Spark
 spark-install:
